@@ -6,11 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using UESAN.StoreDB.DOMAIN.Core.Entities;
+using UESAN.StoreDB.DOMAIN.Core.Interfaces;
 using UESAN.StoreDB.DOMAIN.Infrastructure.Data;
 
 namespace UESAN.StoreDB.DOMAIN.Infrastructure.Repositories
 {
-    public class CategoryRepository
+    public class CategoryRepository : ICategoryRepository
     {
         private readonly StoreDbContext _dbContext;
         public CategoryRepository(StoreDbContext dbContext)
@@ -28,7 +29,7 @@ namespace UESAN.StoreDB.DOMAIN.Infrastructure.Repositories
         //    var categories = _dbContext.Category.ToList();
         //    return categories;
         //}
-        public async Task <List<Category>> GetCategories()
+        public async Task<List<Category>> GetCategories()
         {
             var categories = await _dbContext.Category.ToListAsync();
             return categories;
