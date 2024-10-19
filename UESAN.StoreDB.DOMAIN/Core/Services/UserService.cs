@@ -12,10 +12,12 @@ namespace UESAN.StoreDB.DOMAIN.Core.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IJWTService _jwtService;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IJWTService jwtservice)
         {
             _userRepository = userRepository;
+            _jwtService = jwtservice;
         }
 
         public async Task<UserResponseAuthDTO> SignIn(string email, string password)
@@ -24,7 +26,7 @@ namespace UESAN.StoreDB.DOMAIN.Core.Services
             if (user == null) return null;
 
             //TODO: implementar JWT
-            var token = "";
+            var token = _jwtService.GenerateJWToken(user);
             var sendEmail = false;
             var userDTO = new UserResponseAuthDTO()
             {
